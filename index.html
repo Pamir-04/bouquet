@@ -1,245 +1,104 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Оцени букет</title>
+
   <style>
-    :root{
-      --bg1:#fff4f7;
-      --bg2:#ffe7ee;
-      --card:#ffffffcc;
-      --text:#1f1f1f;
-      --muted:#5c5c5c;
-      --shadow:0 18px 40px rgba(0,0,0,.12);
-      --border:rgba(255,255,255,.65);
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffeef2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family: Inter, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left, #ffd9e5 0%, transparent 35%),
-        radial-gradient(circle at bottom right, #ffd2df 0%, transparent 35%),
-        linear-gradient(135deg, var(--bg1), var(--bg2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
-    .wrap{
-      width:100%;
-      max-width:560px;
+
+    h1 {
+      margin-bottom: 10px;
     }
-    .card{
-      background:var(--card);
-      backdrop-filter: blur(10px);
-      border:1px solid var(--border);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:28px 22px 22px;
-      position:relative;
-      overflow:hidden;
+
+    button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #f3f3f3;
     }
-    .badge{
-      display:inline-block;
-      padding:8px 14px;
-      border-radius:999px;
-      background:#fff;
-      font-size:13px;
-      font-weight:700;
-      letter-spacing:.2px;
-      box-shadow:0 8px 18px rgba(0,0,0,.06);
-      margin-bottom:14px;
+
+    button:hover {
+      background: #e6e6e6;
     }
-    h1{
-      margin:0 0 10px;
-      font-size:34px;
-      line-height:1.05;
-    }
-    .sub{
-      margin:0 0 22px;
-      font-size:17px;
-      line-height:1.45;
-      color:var(--muted);
-    }
-    .question{
-      font-size:20px;
-      font-weight:800;
-      margin:0 0 14px;
-    }
-    .buttons{
-      display:grid;
-      gap:12px;
-    }
-    button{
-      width:100%;
-      border:none;
-      border-radius:18px;
-      padding:16px 18px;
-      text-align:left;
-      font-size:18px;
-      font-weight:700;
-      background:#fff;
-      color:#222;
-      box-shadow:0 10px 22px rgba(0,0,0,.07);
-      cursor:pointer;
-      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
-    }
-    button:hover{
-      transform:translateY(-1px);
-      box-shadow:0 14px 24px rgba(0,0,0,.10);
-      background:#fffafb;
-    }
-    button:active{ transform:translateY(0); }
-    .small{
-      margin-top:14px;
-      color:#777;
-      font-size:12px;
-      text-align:center;
-    }
-    .thanks{
-      display:none;
-      text-align:center;
-      padding:18px 8px 4px;
-      animation:fade .25s ease;
-    }
-    .thanks.show{display:block}
-    .thanks h2{
-      margin:0 0 10px;
-      font-size:30px;
-      line-height:1.1;
-    }
-    .thanks p{
-      margin:0;
-      font-size:18px;
-      color:var(--muted);
-      line-height:1.45;
-    }
-    .footer{
-      margin-top:16px;
-      text-align:center;
-      font-size:12px;
-      color:#8b8b8b;
-    }
-    .heart{
-      position:absolute;
-      font-size:28px;
-      opacity:.18;
-      user-select:none;
-    }
-    .h1{top:16px; right:18px}
-    .h2{bottom:18px; left:18px}
-    @keyframes fade{
-      from{opacity:0; transform:translateY(6px)}
-      to{opacity:1; transform:translateY(0)}
-    }
-    @media (max-width:480px){
-      .card{padding:24px 18px 20px}
-      h1{font-size:30px}
-      .question{font-size:18px}
-      button{font-size:17px}
+
+    #thanksScreen {
+      display: none;
     }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="heart h1">💐</div>
-      <div class="heart h2">🌹</div>
 
-      <div id="ratingScreen">
-        <div class="badge">Сканируй. Оцени. Не щади.</div>
-        <h1>Ну давай,<br>оцени букет 💐</h1>
-        <p class="sub">Я старался. Не подведи с оценкой.</p>
-        <div class="question">Сколько из 5 он реально заслуживает?</div>
+<div class="card">
 
-        <div class="buttons">
-          <button onclick="sendRating(5, '😍 Это сильно')">😍 Это сильно</button>
-          <button onclick="sendRating(4, '😏 Неплохо, зачёт')">😏 Неплохо, зачёт</button>
-          <button onclick="sendRating(3, '😐 Норм, жить можно')">😐 Норм, жить можно</button>
-          <button onclick="sendRating(2, '🙄 Ожидала большего')">🙄 Ожидала большего</button>
-          <button onclick="sendRating(1, '💀 Ну это провал')">💀 Ну это провал</button>
-        </div>
+  <div id="ratingScreen">
+    <h1>Ну давай, оцени букет 💐</h1>
+    <p>Сколько из 5 он заслуживает?</p>
 
-        <div class="small">Нажми один раз. Вердикт сразу улетит.</div>
-      </div>
-
-      <div id="thanksScreen" class="thanks">
-        <h2>Принято.</h2>
-        <p>Твой вердикт зафиксирован 😎</p>
-      </div>
-    </div>
-
-    <div class="footer">
-      Для Telegram вставь свой <b>BOT_TOKEN</b> и <b>CHAT_ID</b> в коде.
-    </div>
+    <button onclick="sendRating(5,'😍 Это сильно')">😍 Это сильно</button>
+    <button onclick="sendRating(4,'😏 Неплохо')">😏 Неплохо</button>
+    <button onclick="sendRating(3,'😐 Норм')">😐 Норм</button>
+    <button onclick="sendRating(2,'🙄 Так себе')">🙄 Так себе</button>
+    <button onclick="sendRating(1,'💀 Провал')">💀 Провал</button>
   </div>
 
-  <script>
-    // ====== ВСТАВЬ СВОИ ДАННЫЕ TELEGRAM ======
-    const BOT_TOKEN = "8762087875:AAHF_EWDWHnLVzm8RfeRcT6O9jDG2QrU6MY";
-    const CHAT_ID = "803409577";
-    // ========================================
+  <div id="thanksScreen">
+    <h2>Принято 😎</h2>
+    <p>Твой вердикт зафиксирован</p>
+  </div>
 
-    let sent = false;
+</div>
 
-    function getQueryParam(name) {
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name) || "";
-    }
+<script>
+  const BOT_TOKEN = "8762087875:AAHF_EWDWHnLVzm8RfeRcT6O9jDG2QrU6MY";
+  const CHAT_ID = "803409577";
 
-    function sendRating(score, label) {
-  if (sent) return;
-  sent = true;
+  let sent = false;
 
-  document.getElementById("ratingScreen").style.display = "none";
-  document.getElementById("thanksScreen").classList.add("show");
+  function sendRating(score, label) {
+    if (sent) return;
+    sent = true;
 
-  const source = getQueryParam("src");
-  const note = getQueryParam("note");
-  const time = new Date().toLocaleString("ru-RU");
+    document.getElementById("ratingScreen").style.display = "none";
+    document.getElementById("thanksScreen").style.display = "block";
 
-  const text =
-`💐 Новая оценка букета
+    const text =
+      "💐 Оценка букета\n\n" +
+      "Оценка: " + score + "/5\n" +
+      "Комментарий: " + label;
 
-Оценка: ${score}/5
-Вариант: ${label}
-Время: ${time}${source ? "\nИсточник: " + source : ""}${note ? "\nЗаметка: " + note : ""}`;
+    const url =
+      "https://api.telegram.org/bot" + BOT_TOKEN +
+      "/sendMessage?chat_id=" + CHAT_ID +
+      "&text=" + encodeURIComponent(text);
 
-  const url =
-    "https://api.telegram.org/bot" + BOT_TOKEN +
-    "/sendMessage?chat_id=" + CHAT_ID +
-    "&text=" + encodeURIComponent(text);
+    const img = new Image();
+    img.src = url;
+  }
+</script>
 
-  const img = new Image();
-  img.src = url;
-}`;
-
-      if (
-        BOT_TOKEN &&
-        CHAT_ID &&
-        BOT_TOKEN !== "8762087875:AAHF_EWDWHnLVzm8RfeRcT6O9jDG2QrU6MY" &&
-        CHAT_ID !== "803409577"
-      ) {
-        try {
-          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({
-              chat_id: CHAT_ID,
-              text: text
-            })
-          });
-        } catch (e) {
-          console.log("Telegram send error:", e);
-        }
-      } else {
-        console.log("Telegram is not configured. Message:", text);
-      }
-    }
-  </script>
 </body>
 </html>
