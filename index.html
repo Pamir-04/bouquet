@@ -191,23 +191,32 @@
       return url.searchParams.get(name) || "";
     }
 
-    async function sendRating(score, label) {
-      if (sent) return;
-      sent = true;
+    function sendRating(score, label) {
+  if (sent) return;
+  sent = true;
 
-      document.getElementById("ratingScreen").style.display = "none";
-      document.getElementById("thanksScreen").classList.add("show");
+  document.getElementById("ratingScreen").style.display = "none";
+  document.getElementById("thanksScreen").classList.add("show");
 
-      const source = getQueryParam("src");
-      const note = getQueryParam("note");
-      const time = new Date().toLocaleString("ru-RU");
+  const source = getQueryParam("src");
+  const note = getQueryParam("note");
+  const time = new Date().toLocaleString("ru-RU");
 
-      const text =
+  const text =
 `💐 Новая оценка букета
 
 Оценка: ${score}/5
 Вариант: ${label}
 Время: ${time}${source ? "\nИсточник: " + source : ""}${note ? "\nЗаметка: " + note : ""}`;
+
+  const url =
+    "https://api.telegram.org/bot" + BOT_TOKEN +
+    "/sendMessage?chat_id=" + CHAT_ID +
+    "&text=" + encodeURIComponent(text);
+
+  const img = new Image();
+  img.src = url;
+}`;
 
       if (
         BOT_TOKEN &&
