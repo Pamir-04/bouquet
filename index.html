@@ -7,81 +7,50 @@
 
 <style>
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fdeef2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+  margin:0;
+  font-family:Arial;
+  background:#fdeef2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
 }
 
 .card {
-  width: 100%;
-  max-width: 360px;
-  background: #fff;
-  padding: 24px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-h1, h2 {
-  margin: 0 0 10px;
-}
-
-p {
-  color: #666;
-  margin: 0 0 12px;
-  line-height: 1.4;
+  width:340px;
+  background:#fff;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
 button {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 12px;
-  font-size: 15px;
-  cursor: pointer;
-  background: #f5f5f5;
-}
-
-button:hover {
-  background: #ececec;
+  width:100%;
+  padding:14px;
+  margin:8px 0;
+  border:none;
+  border-radius:12px;
+  font-size:15px;
+  cursor:pointer;
+  background:#f5f5f5;
 }
 
 textarea, input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  font-size: 15px;
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:10px;
+  border:1px solid #ddd;
 }
 
 #contactScreen, #thanksScreen {
-  display: none;
-  text-align: center;
-}
-
-#reactionText {
-  font-weight: bold;
-  margin-top: 10px;
-  color: #333;
-}
-
-.secret {
-  margin-top: 10px;
-  color: #222;
-  font-weight: bold;
+  display:none;
+  text-align:center;
 }
 
 .small {
-  font-size: 13px;
-  color: #888;
-  margin-top: 6px;
+  font-size:13px;
+  color:#888;
 }
 </style>
 </head>
@@ -90,36 +59,40 @@ textarea, input {
 
 <div class="card">
 
-  <div id="ratingScreen">
-    <h1>Жду оценки 💐</h1>
-    <p>Только честно 😏</p>
+<div id="ratingScreen">
+<h1>Жду оценки 💐</h1>
+<p>Только честно 😏</p>
 
-    <button type="button" onclick="sendRating(5,'😍 Это сильно')">😍 Это сильно</button>
-    <button type="button" onclick="sendRating(4,'😏 Неплохо')">😏 Неплохо</button>
-    <button type="button" onclick="sendRating(3,'😐 Норм')">😐 Норм</button>
-    <button type="button" onclick="sendRating(2,'🙄 Так себе')">🙄 Так себе</button>
-    <button type="button" onclick="sendRating(1,'💀 Провал')">💀 Провал</button>
-  </div>
+<button onclick="sendRating(5,'😍 Это сильно')">😍 Это сильно</button>
+<button onclick="sendRating(4,'😏 Неплохо')">😏 Неплохо</button>
+<button onclick="sendRating(3,'😐 Норм')">😐 Норм</button>
+<button onclick="sendRating(2,'🙄 Так себе')">🙄 Так себе</button>
+<button onclick="sendRating(1,'💀 Провал')">💀 Провал</button>
+</div>
 
-  <div id="contactScreen">
-    <h2 id="reactionText"></h2>
-    <p id="contactPrompt">Если зашло — оставь сообщение и контакт 😏</p>
-    <p id="secretLine" class="secret" style="display:none;">Надеюсь этот букет станет началом знакомства 😌</p>
+<div id="contactScreen">
+<h2 id="reactionText"></h2>
 
-    <textarea id="msg" placeholder="Напиши что думаешь..."></textarea>
-    <input id="contact" placeholder="WhatsApp или Telegram">
+<p>Пусть этот букет станет началом знакомства</p>
 
-    <button type="button" onclick="submitExtra()">Отправить</button>
-    <button type="button" onclick="skipExtra()">Пропустить</button>
-    <button type="button" id="coffeeBtn" onclick="askCoffee()" style="display:none;">☕ Позвать на кофе</button>
+<div id="coffeeBlock" style="display:none;">
+<p><b>☕ Пойдём на кофе?</b></p>
+<button onclick="coffeeAnswer('Да')">Да 😏</button>
+<button onclick="coffeeAnswer('Нет')">Нет 🙃</button>
+</div>
 
-    <div class="small">Отвечать необязательно, но было бы красиво 😄</div>
-  </div>
+<textarea id="msg" placeholder="Можешь что-нибудь написать..."></textarea>
+<input id="contact" placeholder="WhatsApp или Telegram">
 
-  <div id="thanksScreen">
-    <h2 id="finalText">Принято 😎</h2>
-    <p id="finalSubtext">Вердикт зафиксирован</p>
-  </div>
+<button onclick="submitExtra()">Отправить</button>
+
+<div class="small">Без ответа не отпущу 😄</div>
+</div>
+
+<div id="thanksScreen">
+<h2 id="finalText">Принято 😎</h2>
+<p>Вердикт зафиксирован</p>
+</div>
 
 </div>
 
@@ -128,9 +101,9 @@ const BOT_TOKEN = "8762087875:AAHF_EWDWHnLVzm8RfeRcT6O9jDG2QrU6MY";
 const CHAT_ID = "803409577";
 
 var sent = false;
-var savedScore = 0;
+var savedScore = "";
 var savedLabel = "";
-var savedReaction = "";
+var coffeeChoice = "Не ответила";
 
 function sendToTelegram(text) {
   var url = "https://api.telegram.org/bot" + BOT_TOKEN +
@@ -148,51 +121,31 @@ function sendRating(score, label) {
 
   document.getElementById("ratingScreen").style.display = "none";
 
-  var reaction = "";
-  var finalText = "";
-  var finalSubtext = "Вердикт зафиксирован";
+  let reaction = "";
 
-  if (score === 5) {
+  if (score == 5) {
     reaction = "Она в восторге 😏";
-    finalText = "Я так и знал 😎";
-  } else if (score === 4) {
-    reaction = "Неплохо, но можно лучше 😄";
-    finalText = "Почти идеально";
-  } else if (score === 3) {
-    reaction = "Ну… живём 😐";
-    finalText = "Принято без эмоций 😄";
-  } else if (score === 2) {
-    reaction = "Оу… надо было постараться 😬";
-    finalText = "Учтём 😄";
-  } else {
-    reaction = "Брат… это провал 💀";
-    finalText = "Надо менять стратегию 😄";
+    document.getElementById("coffeeBlock").style.display = "block";
   }
+  else if (score == 4) reaction = "Неплохо 😄";
+  else if (score == 3) reaction = "Норм 😐";
+  else if (score == 2) reaction = "Можно лучше 😬";
+  else reaction = "Ну… не зашло 💀";
 
-  savedReaction = reaction;
-  document.getElementById("finalText").innerText = finalText;
-  document.getElementById("finalSubtext").innerText = finalSubtext;
+  document.getElementById("reactionText").innerText = reaction;
 
   if (score >= 4) {
     document.getElementById("contactScreen").style.display = "block";
-    document.getElementById("reactionText").innerText = reaction;
-
-    if (score === 5) {
-      document.getElementById("secretLine").style.display = "block";
-      document.getElementById("coffeeBtn").style.display = "block";
-      document.getElementById("contactPrompt").innerText = "Если букет реально зашёл — оставь сообщение и контакт 😏";
-    }
   } else {
     sent = true;
     document.getElementById("thanksScreen").style.display = "block";
 
-    sendToTelegram(
-      "💐 Оценка букета\n\n" +
-      "Оценка: " + score + "/5\n" +
-      "Комментарий: " + label + "\n" +
-      "Реакция: " + reaction
-    );
+    sendToTelegram("💐 Оценка: " + score + "/5 — " + label);
   }
+}
+
+function coffeeAnswer(answer) {
+  coffeeChoice = answer;
 }
 
 function submitExtra() {
@@ -206,37 +159,11 @@ function submitExtra() {
   document.getElementById("thanksScreen").style.display = "block";
 
   sendToTelegram(
-    "💐 Оценка букета\n\n" +
-    "Оценка: " + savedScore + "/5\n" +
-    "Комментарий: " + savedLabel + "\n" +
-    "Реакция: " + savedReaction + "\n\n" +
-    "Сообщение: " + msg + "\n" +
-    "Контакт: " + contact
+    "💐 Оценка: " + savedScore + "/5 — " + savedLabel +
+    "\\n☕ Кофе: " + coffeeChoice +
+    "\\nСообщение: " + msg +
+    "\\nКонтакт: " + contact
   );
-}
-
-function skipExtra() {
-  if (sent) return;
-  sent = true;
-
-  document.getElementById("contactScreen").style.display = "none";
-  document.getElementById("thanksScreen").style.display = "block";
-
-  sendToTelegram(
-    "💐 Оценка букета\n\n" +
-    "Оценка: " + savedScore + "/5\n" +
-    "Комментарий: " + savedLabel + "\n" +
-    "Реакция: " + savedReaction + "\n\n" +
-    "Контакт не оставлен"
-  );
-}
-
-function askCoffee() {
-  var msgField = document.getElementById("msg");
-  if (!msgField.value) {
-    msgField.value = "За такой букет можно и на кофе согласиться 😄";
-  }
-  document.getElementById("contact").focus();
 }
 </script>
 
