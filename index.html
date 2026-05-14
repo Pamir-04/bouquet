@@ -262,6 +262,8 @@ textarea:focus, input:focus {
 
     <button class="choice" onclick="setDate('coffee')">☕ &nbsp;Кофе — почему бы и нет</button>
     <button class="choice" onclick="setDate('walk')">🚶‍♀️ &nbsp;Прогулка по городу</button>
+    <button class="choice" onclick="setDate('cinema')">🎬 &nbsp;Кино</button>
+    <button class="choice" onclick="setDate('kurutob')">🥗 &nbsp;Курутоб в Greenwood House</button>
     <button class="choice" onclick="setDate('dinner')">🍷 &nbsp;Можно сразу ужин</button>
     <button class="choice" onclick="setDate('think')">🤔 &nbsp;Дай подумать</button>
     <button class="choice" onclick="setDate('no')">🙃 &nbsp;Пока нет</button>
@@ -400,6 +402,8 @@ function setDate(choice) {
   const titles = {
     coffee: { eb: "кофе так кофе", t: "Отличный выбор", s: "Оставь контакт — договоримся когда и где ☕" },
     walk: { eb: "прогулка", t: "Классика жанра", s: "Оставь контакт — выберем маршрут 🚶‍♀️" },
+    cinema: { eb: "кино", t: "Идея огонь 🎬", s: "Оставь контакт — выберу что-нибудь хорошее в прокате" },
+    kurutob: { eb: "курутоб 🥗", t: "Идеально", s: "Greenwood House — отличный выбор. Оставь контакт, договоримся 🌿" },
     dinner: { eb: "ужин", t: "Решительно 🔥", s: "Оставь контакт — выберу место получше 🍷" },
     think: { eb: "подумай спокойно", t: "Не тороплю", s: "Оставь контакт — напишу через пару дней, без давления 🌿" },
     no: { eb: "понял", t: "Жаль, но уважаю", s: "Если передумаешь — можешь оставить контакт. Если нет — тоже окей 🤝" }
@@ -475,6 +479,8 @@ function finalSend(type) {
   const dateMap = {
     coffee: "☕ Кофе",
     walk: "🚶 Прогулка",
+    cinema: "🎬 Кино",
+    kurutob: "🥗 Курутоб в Greenwood House",
     dinner: "🍷 Ужин",
     think: "🤔 Подумает",
     no: "🙃 Отказ",
