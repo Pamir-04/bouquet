@@ -3,84 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Оцени букет</title>
+<title>Букет требует ответа 💐</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg: #f8ebe6;
+  --bg-accent: #f5d9d0;
+  --ink: #2a1f1c;
+  --rose: #c25b5b;
+  --rose-deep: #8e3838;
+  --cream: #fffaf5;
+  --shadow: 0 20px 60px -20px rgba(142, 56, 56, 0.35);
+}
+
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fdeef2;
+  font-family: 'Manrope', sans-serif;
+  background:
+    radial-gradient(circle at 20% 10%, var(--bg-accent) 0%, transparent 50%),
+    radial-gradient(circle at 85% 90%, #f0c4b8 0%, transparent 45%),
+    var(--bg);
+  color: var(--ink);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+  overflow-x: hidden;
 }
 
+/* Декоративные лепестки на фоне */
+body::before, body::after {
+  content: "❀";
+  position: fixed;
+  font-size: 180px;
+  color: var(--rose);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+body::before { top: -40px; left: -40px; transform: rotate(-20deg); }
+body::after { bottom: -60px; right: -50px; transform: rotate(25deg); }
+
 .card {
+  position: relative;
   width: 100%;
-  max-width: 360px;
-  background: #fff;
-  padding: 24px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  max-width: 380px;
+  background: var(--cream);
+  padding: 32px 26px;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  z-index: 1;
+  border: 1px solid rgba(142, 56, 56, 0.08);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 12px; left: 12px; right: 12px; bottom: 12px;
+  border: 1px solid rgba(194, 91, 91, 0.15);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--rose-deep);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  opacity: 0.85;
 }
 
 h1, h2 {
-  margin: 0 0 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  margin: 0 0 12px;
+  line-height: 1.15;
+  color: var(--ink);
 }
+
+h1 { font-size: 30px; }
+h2 { font-size: 26px; }
 
 p {
-  color: #666;
-  margin: 0 0 12px;
-  line-height: 1.4;
+  color: #6b5550;
+  margin: 0 0 18px;
+  line-height: 1.5;
+  font-size: 15px;
 }
 
-button {
+.choice {
   width: 100%;
-  padding: 14px;
-  margin: 8px 0;
+  padding: 14px 16px;
+  margin: 7px 0;
+  border: 1px solid rgba(142, 56, 56, 0.12);
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--cream);
+  color: var(--ink);
+  text-align: left;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.choice:hover {
+  background: var(--bg-accent);
+  border-color: var(--rose);
+  transform: translateX(4px);
+}
+
+.choice.active {
+  background: var(--rose);
+  color: var(--cream);
+  border-color: var(--rose-deep);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 14px;
   border: none;
   border-radius: 12px;
   font-size: 15px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
   cursor: pointer;
-  background: #f5f5f5;
+  background: var(--rose);
+  color: var(--cream);
+  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
 }
 
-button:hover {
-  background: #ececec;
+.submit-btn:hover {
+  background: var(--rose-deep);
+  transform: translateY(-2px);
 }
 
 textarea, input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
+  padding: 13px 14px;
+  margin: 8px 0;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(142, 56, 56, 0.15);
+  background: var(--bg);
   box-sizing: border-box;
   font-size: 15px;
+  font-family: 'Manrope', sans-serif;
+  color: var(--ink);
+  resize: vertical;
 }
 
-#contactScreen, #thanksScreen {
-  display: none;
-  text-align: center;
+textarea { min-height: 70px; }
+
+textarea:focus, input:focus {
+  outline: none;
+  border-color: var(--rose);
+  background: var(--cream);
+}
+
+.screen { display: none; animation: fadeIn 0.5s ease; }
+.screen.visible { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .small {
-  font-size: 13px;
-  color: #888;
+  font-size: 12px;
+  color: #a08680;
+  margin-top: 14px;
+  text-align: center;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
 }
 
-.choice-btn.active {
-  background: #e2e2e2;
-  font-weight: bold;
+.divider {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--rose);
+  margin: 16px 0 10px;
+  font-size: 16px;
+  opacity: 0.7;
 }
 
-#coffeeStatus {
-  font-size: 14px;
-  color: #333;
-  min-height: 20px;
-  margin-top: 6px;
+.signature {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--rose-deep);
+  text-align: center;
+  margin-top: 18px;
+}
+
+.flower-icon {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 12px;
+  animation: sway 4s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
 }
 </style>
 </head>
@@ -89,40 +228,105 @@ textarea, input {
 
 <div class="card">
 
-  <div id="ratingScreen">
-    <h1>Жду оценки 💐</h1>
-    <p>Только честно 😏</p>
+  <!-- ЭКРАН 1: Оценка букета -->
+  <div id="screen-rating" class="screen visible">
+    <div class="flower-icon">💐</div>
+    <div class="eyebrow">первый вопрос</div>
+    <h1>Ну как тебе букет?</h1>
+    <p>Можно по-честному. Я выдержу 😏</p>
 
-    <button type="button" onclick="sendRating(5,'😍 Это сильно')">😍 Это сильно</button>
-    <button type="button" onclick="sendRating(4,'😏 Неплохо')">😏 Неплохо</button>
-    <button type="button" onclick="sendRating(3,'😐 Норм')">😐 Норм</button>
-    <button type="button" onclick="sendRating(2,'🙄 Так себе')">🙄 Так себе</button>
-    <button type="button" onclick="sendRating(1,'💀 Это фиаско братан')">💀 Это фиаско братан</button>
+    <button class="choice" onclick="rateAndNext(5,'😍 Восторг')">😍 &nbsp;Восторг, прям ах</button>
+    <button class="choice" onclick="rateAndNext(4,'😏 Хорошо')">😏 &nbsp;Хорошо, мне нравится</button>
+    <button class="choice" onclick="rateAndNext(3,'😐 Норм')">😐 &nbsp;Нормально</button>
+    <button class="choice" onclick="rateAndNext(2,'🙄 Так себе')">🙄 &nbsp;Так себе</button>
+    <button class="choice" onclick="rateAndNext(1,'💀 Мимо')">💀 &nbsp;Мимо кассы</button>
   </div>
 
-  <div id="contactScreen">
-    <h2 id="reactionText"></h2>
+  <!-- ЭКРАН 2: Статус -->
+  <div id="screen-status" class="screen">
+    <div class="eyebrow" id="reactionText">— реакция —</div>
+    <h2>А теперь интереснее...</h2>
+    <p>Скажи как есть — я не обижусь 🤝</p>
 
-    <p>Пусть этот букет станет началом знакомства</p>
+    <button class="choice" onclick="setStatus('free')">🦋 &nbsp;Свободна как ветер</button>
+    <button class="choice" onclick="setStatus('complicated')">🌀 &nbsp;Всё сложно</button>
+    <button class="choice" onclick="setStatus('taken')">💍 &nbsp;Сердце занято</button>
+    <button class="choice" onclick="setStatus('mystery')">🌙 &nbsp;Не скажу — пусть будет тайной</button>
+  </div>
 
-    <div id="coffeeBlock" style="display:none;">
-      <p><b>☕ Пойдём на кофе?</b></p>
-      <button type="button" id="coffeeYesBtn" class="choice-btn" onclick="coffeeAnswer('Да')">Да 😏</button>
-      <button type="button" id="coffeeNoBtn" class="choice-btn" onclick="coffeeAnswer('Нет')">Нет 🙃</button>
-      <div id="coffeeStatus"></div>
-    </div>
+  <!-- ЭКРАН 3A: Свободна — шанс на встречу -->
+  <div id="screen-date" class="screen">
+    <div class="eyebrow">отлично</div>
+    <h2>Тогда главное:</h2>
+    <p>Есть шанс продолжить эту историю вне переписки?</p>
 
-    <textarea id="msg" placeholder="Можешь что-нибудь написать..."></textarea>
+    <button class="choice" onclick="setDate('coffee')">☕ &nbsp;Кофе — почему бы и нет</button>
+    <button class="choice" onclick="setDate('walk')">🚶‍♀️ &nbsp;Прогулка по городу</button>
+    <button class="choice" onclick="setDate('dinner')">🍷 &nbsp;Можно сразу ужин</button>
+    <button class="choice" onclick="setDate('think')">🤔 &nbsp;Дай подумать</button>
+    <button class="choice" onclick="setDate('no')">🙃 &nbsp;Пока нет</button>
+  </div>
+
+  <!-- ЭКРАН 3B: Всё сложно -->
+  <div id="screen-complicated" class="screen">
+    <div class="eyebrow">понимаю</div>
+    <h2>Жизнь штука непростая</h2>
+    <p>Но если вдруг звёзды сойдутся — можно тебе иногда писать?</p>
+
+    <button class="choice" onclick="setComplicated('yes')">💌 &nbsp;Можно, без обязательств</button>
+    <button class="choice" onclick="setComplicated('friends')">🤝 &nbsp;Только по-дружески</button>
+    <button class="choice" onclick="setComplicated('no')">🙏 &nbsp;Лучше не надо</button>
+  </div>
+
+  <!-- ЭКРАН 3C: Занята — красиво отпускаем -->
+  <div id="screen-taken" class="screen">
+    <div class="flower-icon">🌹</div>
+    <h2>Тогда букет — просто букет</h2>
+    <p>Без подтекста, без давления. Просто потому что ты этого достойна.</p>
+    <p style="font-style: italic; color: var(--rose-deep);">Ему повезло 🤝</p>
+    <button class="submit-btn" onclick="finalSend('taken_final')">Принять с улыбкой ✨</button>
+  </div>
+
+  <!-- ЭКРАН 3D: Тайна -->
+  <div id="screen-mystery" class="screen">
+    <div class="eyebrow">интригующе</div>
+    <h2>Загадочная — это даже лучше</h2>
+    <p>Тогда оставь хоть какую-то ниточку, за которую можно потянуть 😏</p>
+
+    <textarea id="mysteryMsg" placeholder="Можешь написать что-нибудь..."></textarea>
+    <input id="mysteryContact" placeholder="WhatsApp / Telegram (если захочешь)">
+
+    <button class="submit-btn" onclick="finalSend('mystery_final')">Отправить</button>
+  </div>
+
+  <!-- ЭКРАН 4: Контакт (после положительного ответа) -->
+  <div id="screen-contact" class="screen">
+    <div class="eyebrow" id="contactEyebrow">отлично</div>
+    <h2 id="contactTitle">Тогда оставь контакт</h2>
+    <p id="contactSubtitle">Я не буду спамить, обещаю 🤞</p>
+
+    <textarea id="msg" placeholder="Пара слов от себя (по желанию)..."></textarea>
     <input id="contact" placeholder="WhatsApp или Telegram">
 
-    <button type="button" onclick="submitExtra()">Отправить</button>
-
-    <div class="small">Без ответа не отпущу 😄</div>
+    <button class="submit-btn" onclick="finalSend('contact_final')">Отправить ✨</button>
+    <div class="small">обещаю не пропадать</div>
   </div>
 
-  <div id="thanksScreen">
-    <h2 id="finalText">Принято 😎</h2>
-    <p>Вердикт зафиксирован</p>
+  <!-- ЭКРАН 5: Низкая оценка -->
+  <div id="screen-bad-rating" class="screen">
+    <div class="flower-icon">🥀</div>
+    <h2>Принято</h2>
+    <p>Жаль, что не зашло. В следующий раз постараюсь лучше — если будет следующий раз 😄</p>
+    <textarea id="badMsg" placeholder="Можешь подсказать, что было не так?"></textarea>
+    <button class="submit-btn" onclick="finalSend('bad_final')">Отправить</button>
+  </div>
+
+  <!-- ФИНАЛ -->
+  <div id="screen-thanks" class="screen">
+    <div class="flower-icon" id="finalIcon">✨</div>
+    <h2 id="finalTitle">Ответ принят</h2>
+    <p id="finalSubtitle">Что бы ни было — спасибо за честность.</p>
+    <div class="signature">— с уважением</div>
   </div>
 
 </div>
@@ -131,98 +335,175 @@ textarea, input {
 const BOT_TOKEN = "8762087875:AAHF_EWDWHnLVzm8RfeRcT6O9jDG2QrU6MY";
 const CHAT_ID = "803409577";
 
-var sent = false;
-var savedScore = "";
-var savedLabel = "";
-var coffeeChoice = "Не ответила";
-var savedReaction = "";
+let state = {
+  sent: false,
+  score: null,
+  scoreLabel: "",
+  reaction: "",
+  status: "",
+  dateChoice: "",
+  complicated: ""
+};
 
 function sendToTelegram(text) {
-  var url = "https://api.telegram.org/bot" + BOT_TOKEN +
-            "/sendMessage?chat_id=" + CHAT_ID +
-            "&text=" + encodeURIComponent(text);
-  var img = new Image();
+  const url = "https://api.telegram.org/bot" + BOT_TOKEN +
+              "/sendMessage?chat_id=" + CHAT_ID +
+              "&text=" + encodeURIComponent(text);
+  const img = new Image();
   img.src = url;
 }
 
-function sendRating(score, label) {
-  if (sent) return;
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
+  document.getElementById(id).classList.add('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  savedScore = score;
-  savedLabel = label;
+function rateAndNext(score, label) {
+  state.score = score;
+  state.scoreLabel = label;
 
-  document.getElementById("ratingScreen").style.display = "none";
+  let reaction = "";
+  if (score == 5) reaction = "Букет зашёл 😍";
+  else if (score == 4) reaction = "Хорошая реакция 😏";
+  else if (score == 3) reaction = "Сдержанно 😐";
+  else if (score == 2) reaction = "Не очень 🙄";
+  else reaction = "Полный провал 💀";
 
-  var reaction = "";
+  state.reaction = reaction;
 
-  if (score == 5) {
-    reaction = "Похоже, букет зашёл 😏";
-    document.getElementById("coffeeBlock").style.display = "block";
-  } else if (score == 4) {
-    reaction = "Неплохо 😄";
-  } else if (score == 3) {
-    reaction = "Норм 😐";
-  } else if (score == 2) {
-    reaction = "Можно лучше 😬";
+  if (score >= 3) {
+    document.getElementById('reactionText').innerText = "оценка: " + label;
+    showScreen('screen-status');
   } else {
-    reaction = "Ну… не зашло 💀";
-  }
-
-  savedReaction = reaction;
-  document.getElementById("reactionText").innerText = reaction;
-
-  if (score >= 4) {
-    document.getElementById("contactScreen").style.display = "block";
-  } else {
-    sent = true;
-    document.getElementById("thanksScreen").style.display = "block";
-
-    sendToTelegram(
-      "💐 Оценка: " + score + "/5 — " + label +
-      "\\nРеакция: " + reaction
-    );
+    showScreen('screen-bad-rating');
   }
 }
 
-function coffeeAnswer(answer) {
-  coffeeChoice = answer;
+function setStatus(status) {
+  state.status = status;
 
-  var yesBtn = document.getElementById("coffeeYesBtn");
-  var noBtn = document.getElementById("coffeeNoBtn");
-  var status = document.getElementById("coffeeStatus");
-  var msgField = document.getElementById("msg");
-
-  yesBtn.classList.remove("active");
-  noBtn.classList.remove("active");
-
-  if (answer === "Да") {
-    yesBtn.classList.add("active");
-    status.innerText = "Ответ записан: Да 😏";
-    msgField.value = "За такой букет можно и на кофе согласиться 😄";
-  } else {
-    noBtn.classList.add("active");
-    status.innerText = "Ответ записан: Нет 🙃";
-    msgField.value = "Букет понравился, но кофе пока пропущу 😄";
+  if (status === 'free') {
+    showScreen('screen-date');
+  } else if (status === 'complicated') {
+    showScreen('screen-complicated');
+  } else if (status === 'taken') {
+    showScreen('screen-taken');
+  } else if (status === 'mystery') {
+    showScreen('screen-mystery');
   }
 }
 
-function submitExtra() {
-  if (sent) return;
-  sent = true;
+function setDate(choice) {
+  state.dateChoice = choice;
 
-  var msg = document.getElementById("msg").value || "—";
-  var contact = document.getElementById("contact").value || "—";
+  const titles = {
+    coffee: { eb: "кофе так кофе", t: "Отличный выбор", s: "Оставь контакт — договоримся когда и где ☕" },
+    walk: { eb: "прогулка", t: "Классика жанра", s: "Оставь контакт — выберем маршрут 🚶‍♀️" },
+    dinner: { eb: "ужин", t: "Решительно 🔥", s: "Оставь контакт — выберу место получше 🍷" },
+    think: { eb: "подумай спокойно", t: "Не тороплю", s: "Оставь контакт — напишу через пару дней, без давления 🌿" },
+    no: { eb: "понял", t: "Жаль, но уважаю", s: "Если передумаешь — можешь оставить контакт. Если нет — тоже окей 🤝" }
+  };
 
-  document.getElementById("contactScreen").style.display = "none";
-  document.getElementById("thanksScreen").style.display = "block";
+  const cfg = titles[choice];
+  document.getElementById('contactEyebrow').innerText = cfg.eb;
+  document.getElementById('contactTitle').innerText = cfg.t;
+  document.getElementById('contactSubtitle').innerText = cfg.s;
 
-  sendToTelegram(
-    "💐 Оценка: " + savedScore + "/5 — " + savedLabel +
-    "\\nРеакция: " + savedReaction +
-    "\\n☕ Кофе: " + coffeeChoice +
-    "\\nСообщение: " + msg +
-    "\\nКонтакт: " + contact
-  );
+  showScreen('screen-contact');
+}
+
+function setComplicated(choice) {
+  state.complicated = choice;
+
+  if (choice === 'no') {
+    finalSend('complicated_no');
+    return;
+  }
+
+  const cfg = choice === 'yes'
+    ? { eb: "договорились", t: "Тогда оставь контакт", s: "Писать буду редко и по делу 💌" }
+    : { eb: "по-дружески", t: "Дружба — тоже хорошо", s: "Оставь контакт, если не против 🤝" };
+
+  document.getElementById('contactEyebrow').innerText = cfg.eb;
+  document.getElementById('contactTitle').innerText = cfg.t;
+  document.getElementById('contactSubtitle').innerText = cfg.s;
+
+  showScreen('screen-contact');
+}
+
+function finalSend(type) {
+  if (state.sent) return;
+  state.sent = true;
+
+  let msg = "—", contact = "—";
+
+  if (type === 'contact_final') {
+    msg = document.getElementById('msg').value || "—";
+    contact = document.getElementById('contact').value || "—";
+  } else if (type === 'mystery_final') {
+    msg = document.getElementById('mysteryMsg').value || "—";
+    contact = document.getElementById('mysteryContact').value || "—";
+  } else if (type === 'bad_final') {
+    msg = document.getElementById('badMsg').value || "—";
+  }
+
+  // Финальный экран
+  const finals = {
+    contact_final: { icon: "💐", t: "Контакт получен", s: "Напишу. Не пропадай ✨" },
+    mystery_final: { icon: "🌙", t: "Загадка принята", s: "Будем разгадывать вместе" },
+    bad_final: { icon: "🥀", t: "Спасибо за честность", s: "Учту на будущее" },
+    taken_final: { icon: "🌹", t: "Всё понял", s: "Просто наслаждайся букетом" },
+    complicated_no: { icon: "🍃", t: "Уважаю твой выбор", s: "Береги себя" }
+  };
+
+  const f = finals[type] || finals.contact_final;
+  document.getElementById('finalIcon').innerText = f.icon;
+  document.getElementById('finalTitle').innerText = f.t;
+  document.getElementById('finalSubtitle').innerText = f.s;
+  showScreen('screen-thanks');
+
+  // Формируем сообщение в Telegram
+  const statusMap = {
+    free: "Свободна 🦋",
+    complicated: "Всё сложно 🌀",
+    taken: "Занята 💍",
+    mystery: "Тайна 🌙",
+    "": "—"
+  };
+
+  const dateMap = {
+    coffee: "☕ Кофе",
+    walk: "🚶 Прогулка",
+    dinner: "🍷 Ужин",
+    think: "🤔 Подумает",
+    no: "🙃 Отказ",
+    "": "—"
+  };
+
+  const compMap = {
+    yes: "💌 Можно писать",
+    friends: "🤝 По-дружески",
+    no: "🙏 Не писать",
+    "": "—"
+  };
+
+  let report = "💐 НОВЫЙ ОТВЕТ\n\n";
+  report += "Оценка букета: " + (state.score || "—") + "/5 — " + state.scoreLabel + "\n";
+  report += "Реакция: " + state.reaction + "\n";
+  report += "Статус: " + statusMap[state.status] + "\n";
+
+  if (state.status === 'free') {
+    report += "Встреча: " + dateMap[state.dateChoice] + "\n";
+  }
+  if (state.status === 'complicated') {
+    report += "Контакт: " + compMap[state.complicated] + "\n";
+  }
+
+  report += "\nСообщение: " + msg + "\n";
+  report += "Контакт: " + contact;
+
+  sendToTelegram(report);
 }
 </script>
 
